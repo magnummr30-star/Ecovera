@@ -6,7 +6,7 @@ export default function AnnouncementBar() {
   const [announcement, setAnnouncement] = useState(null);
   const { lang } = useI18n();
 
-useEffect(() => {
+  useEffect(() => {
     const controller = new AbortController();
     const load = async () => {
       try {
@@ -22,8 +22,8 @@ useEffect(() => {
         );
         if (res.ok) {
           const data = await res.json();
-          if (process.env.NODE_ENV === 'development') {
-            console.log('AnnouncementBar received:', data);
+          if (import.meta.env.DEV) {
+            console.log("AnnouncementBar received:", data);
           }
           // API returns { Id, Text, LinkUrl, IsActive }
           if (data && data.text) {
@@ -31,7 +31,7 @@ useEffect(() => {
               id: data.id,
               text: data.text,
               linkUrl: data.linkUrl,
-              isActive: data.isActive !== false // Default to true if not specified
+              isActive: data.isActive !== false, // Default to true if not specified
             });
           } else {
             setAnnouncement(null);
@@ -53,29 +53,31 @@ useEffect(() => {
 
   if (!announcement) return null;
 
-  const isRTL = lang === 'ar';
+  const isRTL = lang === "ar";
 
   return (
     <div className="w-full text-white py-2.5 md:py-2 px-2 md:px-4 border-b border-orange-600/50 overflow-hidden relative bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600">
       <div className="announcement-scroll-container">
-        <div className={`announcement-scroll-content ${isRTL ? 'rtl-scroll' : 'ltr-scroll'}`}>
+        <div className={`announcement-scroll-content ${isRTL ? "rtl-scroll" : "ltr-scroll"}`}>
           {/* Multiple copies for seamless overlapping loop */}
           {[...Array(5)].map((_, index) => (
             <React.Fragment key={index}>
               <span className="announcement-text-item">
                 {announcement.linkUrl ? (
-                  <a 
-                    href={announcement.linkUrl} 
+                  <a
+                    href={announcement.linkUrl}
                     className="inline-block font-medium text-xs sm:text-sm md:text-base hover:underline text-white whitespace-nowrap px-1"
                   >
                     {announcement.text}
                   </a>
                 ) : (
-                  <span className="font-medium text-xs sm:text-sm md:text-base whitespace-nowrap px-1">{announcement.text}</span>
+                  <span className="font-medium text-xs sm:text-sm md:text-base whitespace-nowrap px-1">
+                    {announcement.text}
+                  </span>
                 )}
               </span>
               {index < 4 && (
-                <span className="announcement-spacer text-white/70 whitespace-nowrap"> • • • </span>
+                <span className="announcement-spacer text-white/70 whitespace-nowrap">{" • • • "}</span>
               )}
             </React.Fragment>
           ))}
@@ -84,4 +86,3 @@ useEffect(() => {
     </div>
   );
 }
-

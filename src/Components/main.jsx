@@ -45,7 +45,7 @@ const LegalContentEditor = lazy(() => import("./AdminBar/LegalContent/LegalConte
 const ContactUsCom = lazy(() => import("./Contact_About/ContactUsCom"));
 const AboutUs = lazy(() => import("./Contact_About/AboutUs"));
 const PrivacyAndTerms = lazy(() => import("./Privacy_Terms/PrivacyAndTerms"));
-const ClientSearching = lazy(() => import("./Clients/CLientSearching"));
+const ClientSearching = lazy(() => import("./Clients/ClientSearching"));
 const BannersAdmin = lazy(() => import("./AdminBar/Banners/BannersAdmin"));
 const AnnouncementBarAdmin = lazy(() => import("./AdminBar/Banners/AnnouncementBarAdmin"));
 const CurrencyAdmin = lazy(() => import("./AdminBar/Currency/CurrencyAdmin"));

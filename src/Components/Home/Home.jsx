@@ -309,14 +309,14 @@ export default function Home() {
     setloadingDiscountProducts(true);
     try {
       const url = `${API_BASE_URL}Product/GetDiscountProducts?page=${page}&limit=10&lang=${lang}`;
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         console.log('Fetching discount products with lang:', lang, 'page:', page);
       }
       const response = await fetch(url);
       if (!response.ok) throw new Error("Network error");
 
       const data = await response.json();
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         console.log('Discount products received:', data.length);
       }
       if (reset && page === 1) {
