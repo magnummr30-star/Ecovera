@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-brand-orange: #ff7a00;
+  --color-brand-navy: #0a2540;
+  --color-brand-navy-600: #13345d;
+}
+
+/* تحسين التجاوب للشاشات الصغيرة جداً */
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 375px) {
+  html {
+    font-size: 15px;
+  }
+}

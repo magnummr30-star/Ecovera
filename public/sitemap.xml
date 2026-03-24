@@ -1,0 +1,80 @@
+const fetch = require('node-fetch'); // استيراد node-fetch
+const fs = require('fs');
+
+async function generateSitemap() {
+  try {
+    // نداء API لجيب الـ IDs باستخدام fetch
+    const response = await fetch('https://gomango01-001-site1.mtempurl.com/api/Product/GetProductsIds');
+    
+    // التأكد أن الرد كان بنجاح
+    if (!response.ok) {
+      throw new Error('فشل في جلب البيانات');
+    }
+
+    // تحويل البيانات إلى JSON
+    const productIds = await response.json();
+
+    // بداية ملف السايت ماب
+    let sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+`;
+
+    // إضافة روابط المنتجات
+    productIds.forEach(id => {
+      sitemapContent += `
+  <url>
+    <loc>https://gomango.shop/productDetails/${id}</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+    });
+
+    // إضافة الروابط الثابتة الأخرى
+    sitemapContent += `
+  <url>
+    <loc>https://goamgno.shop/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://gomango.shop/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://gomango.shop/about-us</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://gomango.shop/terms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://gomango.shop/FindProducts</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+`;
+
+    // نهاية ملف السايت ماب
+    sitemapContent += `
+</urlset>`;
+
+    // حفظ السايت ماب في ملف
+    fs.writeFileSync('sitemap.xml', sitemapContent);
+
+    console.log('تم إنشاء ملف sitemap.xml بنجاح!');
+  } catch (error) {
+    console.error('حدث خطأ أثناء توليد ملف السايت ماب:', error);
+  }
+}
+
+// تنفيذ السكريبت
+generateSitemap();

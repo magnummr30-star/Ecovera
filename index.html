@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- أيقونات الموقع -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/ProjectImages/SouqLogoEn.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/ProjectImages/SouqLogoEn.webp" />
+    <link rel="apple-touch-icon" href="/ProjectImages/SouqLogoEn.webp" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <style>
+      /* منع zoom على الموبايل */
+      * {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+      }
+      html,
+      body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        touch-action: manipulation;
+      }
+      body {
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        touch-action: manipulation;
+        overscroll-behavior: none;
+      }
+      input,
+      textarea,
+      select,
+      button {
+        font-size: 16px !important; /* منع zoom عند focus على iOS */
+        touch-action: manipulation;
+      }
+      * {
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      input,
+      textarea,
+      [contenteditable] {
+        -webkit-user-select: text;
+        user-select: text;
+      }
+      @media screen and (max-width: 768px) {
+        * {
+          touch-action: manipulation !important;
+        }
+        html {
+          touch-action: manipulation;
+          -ms-touch-action: manipulation;
+        }
+      }
+    </style>
+
+    <script>
+      // منع zoom بشكل كامل باستخدام JavaScript
+      (function () {
+        document.addEventListener(
+          "gesturestart",
+          function (e) {
+            e.preventDefault();
+          },
+          { passive: false }
+        );
+
+        document.addEventListener(
+          "gesturechange",
+          function (e) {
+            e.preventDefault();
+          },
+          { passive: false }
+        );
+
+        document.addEventListener(
+          "gestureend",
+          function (e) {
+            e.preventDefault();
+          },
+          { passive: false }
+        );
+
+        var lastTouchEnd = 0;
+        document.addEventListener(
+          "touchend",
+          function (event) {
+            var now = Date.now();
+            if (now - lastTouchEnd <= 300 && event.touches.length === 0) {
+              event.preventDefault();
+            }
+            lastTouchEnd = now;
+          },
+          { passive: false }
+        );
+
+        var meta = document.querySelector('meta[name="viewport"]');
+        if (meta) {
+          meta.setAttribute(
+            "content",
+            "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+          );
+        }
+
+        window.addEventListener("orientationchange", function () {
+          setTimeout(function () {
+            if (meta) {
+              meta.setAttribute(
+                "content",
+                "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+              );
+            }
+          }, 100);
+        });
+      })();
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>إيكوفيرا | تسوق منتجات لكل بيت في الإمارات بأفضل سعر وتوصيل سريع</title>
+
+    <!-- تحسين محركات البحث -->
+    <meta
+      name="description"
+      content="إيكوفيرا أول منصة تجارة إلكترونية تجمع بين الأصالة والحداثة. اكتشف منتجات فريدة، عروض حصرية، وتوصيل سريع لكل أنحاء الإمارات!"
+    />
+    <meta
+      name="keywords"
+      content="إيكوفيرا، سوق، تسوق، منتجات، شراء أونلاين، عروض، خصومات، توصيل سريع، إلكترونيات، ملابس، أجهزة منزلية"
+    />
+    <meta name="author" content="إيكوفيرا" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="إيكوفيرا - تسوق منتجات أصلية بأفضل سعر" />
+    <meta
+      property="og:description"
+      content="اكتشف منتجات أصلية وعروض حصرية في إيكوفيرا. تسوق الآن بأسعار مميزة وتوصيل سريع لكل أنحاء الإمارات."
+    />
+    <meta property="og:url" content="https://gomango.shop" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://gomango.shop/ProjectImages/SouqLogoEn.webp" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="إيكوفيرا - منتجات أصلية بأسعار مميزة" />
+    <meta
+      name="twitter:description"
+      content="تسوق الآن من إيكوفيرا وتمتع بخصومات كبيرة وتوصيل سريع لكل مكان في الإمارات."
+    />
+    <meta name="twitter:image" content="https://gomango.shop/ProjectImages/SouqLogoEn.webp" />
+
+    <!-- خطوط Google -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- نقطة البداية لتطبيق React -->
+    <script type="module" src="/src/Components/main.jsx"></script>
+  </body>
+</html>

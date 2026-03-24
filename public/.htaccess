@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # إعادة توجيه من GOMANGO.SHOP إلى WWW.GOMANGO.SHOP
+  RewriteCond %{HTTP_HOST} ^gomango\.shop$ [NC]
+  RewriteRule ^(.*)$ https://www.gomango.shop/$1 [R=301,L]
+  
+  # إعادة توجيه جميع الطلبات إلى index.html للسماح لـ React Router بالعمل
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+  
+  # إعادة توجيه صفحات الدفع بشكل خاص
+  RewriteRule ^payment-success$ /index.html [L]
+  RewriteRule ^payment-cancelled$ /index.html [L]
+</IfModule>
+
+# منع الوصول المباشر إلى ملفات معينة
+<FilesMatch "^\.">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /Admin
+Disallow: /admins
+Disallow: /admin
+Sitemap: https://gomango.shop/sitemap.xml

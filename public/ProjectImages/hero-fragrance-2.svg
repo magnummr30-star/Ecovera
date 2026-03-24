@@ -1,0 +1,110 @@
+<svg width="1940" height="920" viewBox="0 0 1940 920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="121" y1="102" x2="1754" y2="828" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBF6EE"/>
+      <stop offset="0.52" stop-color="#F9F5EF"/>
+      <stop offset="1" stop-color="#EFE6D7"/>
+    </linearGradient>
+    <radialGradient id="amberGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1388 278) rotate(145) scale(566 310)">
+      <stop stop-color="#E6BE8D" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#E6BE8D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="deepGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(492 724) rotate(8) scale(496 212)">
+      <stop stop-color="#D8C4A9" stop-opacity="0.84"/>
+      <stop offset="1" stop-color="#D8C4A9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="smokeA" x1="198" y1="650" x2="1710" y2="362" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="0.54" stop-color="#F1D2B3" stop-opacity="0.58"/>
+      <stop offset="0.82" stop-color="#FFFFFF" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="smokeB" x1="314" y1="290" x2="1678" y2="654" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="0.63" stop-color="#DFC39F" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="woodA" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#9D6B45"/>
+      <stop offset="1" stop-color="#6E4327"/>
+    </linearGradient>
+    <linearGradient id="woodB" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#B67C50"/>
+      <stop offset="1" stop-color="#815134"/>
+    </linearGradient>
+    <linearGradient id="woodLight" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#C7905F"/>
+      <stop offset="1" stop-color="#9B6741"/>
+    </linearGradient>
+    <linearGradient id="petalCream" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F7E8D7"/>
+      <stop offset="1" stop-color="#E9D3BE"/>
+    </linearGradient>
+    <filter id="smokeBlur" x="110" y="178" width="1734" height="606" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="24" result="effect1_foregroundBlur_1_1"/>
+    </filter>
+    <filter id="shadow" x="-40" y="-40" width="2020" height="1000" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="14"/>
+      <feGaussianBlur stdDeviation="20"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.43 0 0 0 0 0.28 0 0 0 0 0.18 0 0 0 0.18 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+
+  <rect width="1940" height="920" rx="44" fill="url(#bg)"/>
+  <circle cx="1391" cy="292" r="255" fill="url(#amberGlow)"/>
+  <ellipse cx="495" cy="726" rx="428" ry="184" fill="url(#deepGlow)"/>
+
+  <g opacity="0.72">
+    <path d="M137 704C353 565 584 505 827 521C1084 538 1281 634 1520 623C1634 618 1732 582 1833 531V920H137V704Z" fill="#F6EDDF"/>
+    <path d="M0 780C219 712 439 700 677 723C932 749 1154 833 1422 819C1628 808 1792 731 1940 646V920H0V780Z" fill="#FBF8F1"/>
+  </g>
+
+  <g filter="url(#smokeBlur)" opacity="0.95">
+    <path d="M194 635C381 565 564 539 763 546C977 553 1152 605 1324 590C1485 575 1604 518 1763 416" stroke="url(#smokeA)" stroke-width="58" stroke-linecap="round"/>
+    <path d="M309 300C443 361 564 423 758 451C979 483 1134 434 1300 481C1442 522 1561 602 1678 648" stroke="url(#smokeB)" stroke-width="44" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#shadow)" opacity="0.98">
+    <g transform="translate(1340 457) rotate(-9)">
+      <rect x="0" y="36" width="350" height="88" rx="18" fill="url(#woodA)"/>
+      <rect x="38" y="0" width="322" height="86" rx="18" fill="url(#woodB)"/>
+      <rect x="92" y="74" width="282" height="84" rx="18" fill="url(#woodLight)"/>
+      <path d="M31 69C81 53 139 49 205 58" stroke="#DAB184" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+      <path d="M98 23C154 13 213 15 274 28" stroke="#E9C59B" stroke-width="5" stroke-linecap="round" opacity="0.45"/>
+      <path d="M133 109C184 95 241 95 305 108" stroke="#E6BD8E" stroke-width="5" stroke-linecap="round" opacity="0.42"/>
+      <path d="M20 101C63 90 102 94 141 111" stroke="#E8C18F" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+    </g>
+
+    <g transform="translate(1100 278) rotate(22)">
+      <path d="M0 145C83 96 168 90 255 126C215 194 157 240 83 263C46 275 12 280 -21 279C-10 234 -2 188 0 145Z" fill="url(#petalCream)"/>
+      <path d="M63 40C132 2 205 -1 281 32C240 93 182 134 107 150C71 158 37 159 2 153C17 106 34 68 63 40Z" fill="#EFD9C1"/>
+      <path d="M170 193C228 165 289 164 353 191C306 240 248 270 184 278C154 282 126 281 98 274C118 243 138 214 170 193Z" fill="#F6E8D8"/>
+    </g>
+
+    <g transform="translate(267 487) rotate(-16)">
+      <path d="M0 68C44 24 93 1 148 0C131 52 101 91 61 121C42 136 24 145 6 151C5 122 3 96 0 68Z" fill="#C8D7C0"/>
+      <path d="M101 112C58 78 38 30 39 -31C93 -5 130 29 149 75C159 96 163 116 164 136C139 132 122 124 101 112Z" fill="#A0B596"/>
+    </g>
+  </g>
+
+  <g opacity="0.54">
+    <path d="M1193 201C1269 238 1323 302 1355 389C1381 460 1380 533 1360 610C1325 548 1273 496 1207 454C1141 412 1068 390 989 388C1052 344 1118 311 1193 201Z" fill="#FFFFFF" fill-opacity="0.42"/>
+    <path d="M1464 223C1530 256 1571 318 1576 397C1582 477 1548 558 1491 626C1486 546 1456 474 1408 409C1360 343 1296 295 1217 260C1305 230 1388 203 1464 223Z" fill="#F3D4B4" fill-opacity="0.52"/>
+  </g>
+
+  <g opacity="0.4">
+    <circle cx="968" cy="270" r="17" fill="#FFFFFF"/>
+    <circle cx="1046" cy="233" r="11" fill="#F5DBC1"/>
+    <circle cx="1119" cy="206" r="7" fill="#FFFFFF"/>
+    <circle cx="1188" cy="182" r="9" fill="#EFC69D"/>
+    <circle cx="1261" cy="159" r="7" fill="#FFFFFF"/>
+  </g>
+</svg>
