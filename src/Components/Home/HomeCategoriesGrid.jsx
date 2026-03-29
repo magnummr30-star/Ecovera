@@ -6,6 +6,63 @@ import { ServerPath, CATEGORY_COLORS } from "../Constant";
 import { useHoverColor } from "./HoverColorContext";
 import { fetchCategories } from "../../store/categoriesSlice.js";
 
+const normalizeCategoryLookup = (value = "") =>
+  String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[\u064B-\u065F\u0670]/g, "")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/ة/g, "ه")
+    .replace(/[^a-z0-9\u0621-\u063A\u0641-\u064A]+/g, "");
+
+const getCategoryFallbackImage = (item) => {
+  const lookup = normalizeCategoryLookup(
+    [
+      item?.name,
+      item?.nameEn,
+      item?.categoryNameAr,
+      item?.categoryNameEn,
+      item?.slug,
+    ]
+      .filter(Boolean)
+      .join(" ")
+  );
+
+  const isVeraBloom =
+    (lookup.includes("فيرا") || lookup.includes("vera")) &&
+    (lookup.includes("بلوم") || lookup.includes("bloom"));
+  if (isVeraBloom) {
+    return {
+      src: "/ProjectImages/pp1.jpeg",
+      objectPosition: "center 50%",
+    };
+  }
+
+  const isEssenceOud =
+    ((lookup.includes("ايسنس") || lookup.includes("essence")) &&
+      (
+        lookup.includes("اولد") ||
+        lookup.includes("اود") ||
+        lookup.includes("بولد") ||
+        lookup.includes("oud") ||
+        lookup.includes("bold")
+      )) ||
+    lookup.includes("essenceoud") ||
+    lookup.includes("essencebold");
+  if (isEssenceOud) {
+    return {
+      src: "/ProjectImages/pp2.jpeg",
+      objectPosition: "center 52%",
+    };
+  }
+
+  return null;
+};
+
 export default function HomeCategoriesGrid({ onCategoryHover, onCategoryLeave }) {
   const { setHoverColor } = useHoverColor();
   const onHover = onCategoryHover ?? setHoverColor;
@@ -50,12 +107,15 @@ export default function HomeCategoriesGrid({ onCategoryHover, onCategoryLeave })
               lang === "ar"
                 ? item.name || item.categoryNameAr || searchValue
                 : item.name || searchValue;
-            const imageSrc =
+            const apiImageSrc =
               item.imagePath && item.imagePath !== "."
                 ? item.imagePath.startsWith("http")
                   ? item.imagePath
                   : `${ServerPath}${item.imagePath}`
                 : null;
+            const fallbackImage = apiImageSrc ? null : getCategoryFallbackImage(item);
+            const imageSrc = apiImageSrc || fallbackImage?.src || null;
+            const imageObjectPosition = fallbackImage?.objectPosition || "center";
             const categoryColor = CATEGORY_COLORS[index % CATEGORY_COLORS.length];
             return (
               <div
@@ -76,6 +136,13 @@ export default function HomeCategoriesGrid({ onCategoryHover, onCategoryLeave })
                         alt={displayLabel}
                         src={imageSrc}
                         className="w-full h-full object-cover"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: imageObjectPosition,
+                          display: "block",
+                        }}
                         loading="lazy"
                         decoding="async"
                       />

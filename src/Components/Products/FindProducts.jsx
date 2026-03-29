@@ -13,6 +13,19 @@ import { fetchProductsByName } from "../../store/productsSlice.js";
 
 const ITEMS_PER_PAGE = 10;
 
+const normalizeBannerLookup = (value = "") =>
+  String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[\u064B-\u065F\u0670]/g, "")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/ة/g, "ه")
+    .replace(/[^a-z0-9\u0621-\u063A\u0641-\u064A]+/g, "");
+
 export default function FindProducts() {
   const location = useLocation();
   const { query: pathQuery } = useParams();
@@ -36,10 +49,44 @@ export default function FindProducts() {
   const savedPageRef = React.useRef(null);
   const productIdToScrollRef = React.useRef(null);
   const categoryBannerVideoRefs = useRef({});
+  const localBannerImageUrl1 =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/ProjectImages/pp1.jpeg`
+      : "/ProjectImages/pp1.jpeg";
+  const localBannerImageUrl2 =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/ProjectImages/pp2.jpeg`
+      : "/ProjectImages/pp2.jpeg";
 
   const { searchResults, searchQuery, searchLang, searchCache, searchLoading } = useSelector((state) => state.products);
   const cacheKey = apiQuery.trim() ? `${apiQuery.trim()}:${lang}` : "";
   const hasCached = cacheKey && searchCache[cacheKey];
+  const bannerSearchLookup = useMemo(
+    () => normalizeBannerLookup(`${displayQuery} ${apiQuery} ${rawQuery}`),
+    [displayQuery, apiQuery, rawQuery]
+  );
+  const useSharedPerfumeBanner =
+    bannerSearchLookup.includes("verabloom") ||
+    bannerSearchLookup.includes("فيرابلوم");
+  const sharedPerfumeBanners = useMemo(
+    () => [
+      {
+        id: "find-products-perfume-banner-1",
+        title: "",
+        imageUrl: localBannerImageUrl1,
+        videoUrl: null,
+        linkUrl: "",
+      },
+      {
+        id: "find-products-perfume-banner-2",
+        title: "",
+        imageUrl: localBannerImageUrl2,
+        videoUrl: null,
+        linkUrl: "",
+      },
+    ],
+    [localBannerImageUrl1, localBannerImageUrl2]
+  );
 
   const allProducts = useMemo(() => {
     if (hasCached) return searchCache[cacheKey];
@@ -76,7 +123,7 @@ export default function FindProducts() {
       const data = await res.json();
       return Array.isArray(data) ? data : [];
     },
-    enabled: hasValidCategoryId,
+    enabled: hasValidCategoryId && !useSharedPerfumeBanner,
     staleTime: 5 * 60 * 1000,
   });
 
@@ -87,22 +134,32 @@ export default function FindProducts() {
       ),
     [categoryBannersRaw]
   );
+  const visibleCategoryBanners = useMemo(
+    () => (useSharedPerfumeBanner ? sharedPerfumeBanners : categoryBanners),
+    [useSharedPerfumeBanner, sharedPerfumeBanners, categoryBanners]
+  );
+  const activeCategoryBannerIdx = visibleCategoryBanners.length
+    ? categoryBannerIdx % visibleCategoryBanners.length
+    : 0;
 
   useEffect(() => {
-    if (!categoryBanners.length) return;
-    const interval = setInterval(() => setCategoryBannerIdx((p) => (p + 1) % categoryBanners.length), 4000);
+    if (!visibleCategoryBanners.length) return;
+    const interval = setInterval(
+      () => setCategoryBannerIdx((p) => (p + 1) % visibleCategoryBanners.length),
+      4000
+    );
     return () => clearInterval(interval);
-  }, [categoryBanners.length]);
+  }, [visibleCategoryBanners.length]);
 
   // تشغيل فيديو البانر النشط فقط وإيقاف الباقي (صفحة البحث/الأقسام)
   useEffect(() => {
-    categoryBanners.forEach((_, i) => {
+    visibleCategoryBanners.forEach((_, i) => {
       const el = categoryBannerVideoRefs.current[i];
       if (!el) return;
-      if (i === categoryBannerIdx) el.play().catch(() => {});
+      if (i === activeCategoryBannerIdx) el.play().catch(() => {});
       else el.pause();
     });
-  }, [categoryBannerIdx, categoryBanners.length]);
+  }, [activeCategoryBannerIdx, visibleCategoryBanners]);
 
   const products = useMemo(() => {
     const end = page * ITEMS_PER_PAGE;
@@ -239,11 +296,11 @@ export default function FindProducts() {
           </div>
         </div>
 
-        {/* بانر القسم فقط عند وجود قسم محدد (لا نعرض بانرات الهوم هنا) */}
-        {hasValidCategoryId && categoryBanners.length > 0 && (
+        {/* بانر القسم أو البانر الثابت المشترك لنتائج Vera Bloom */}
+        {visibleCategoryBanners.length > 0 && (
           <div className="w-full px-2 sm:px-4 md:container md:mx-auto md:px-4 mb-4">
             <div className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[20px] border border-gray-200/80 shadow-sm aspect-[1940/920] max-h-[340px] bg-gray-100 flex items-center justify-center">
-              {categoryBanners.map((banner, i) => {
+              {visibleCategoryBanners.map((banner, i) => {
                 const rawImage = banner.imageUrl ?? banner.ImageUrl;
                 const imageSrc = rawImage ? (rawImage.startsWith("http") ? rawImage : `${ServerPath}${rawImage}`) : null;
                 const videoUrlRaw = banner.videoUrl ?? banner.VideoUrl;
@@ -251,7 +308,7 @@ export default function FindProducts() {
                 const hasVideo = Boolean(videoSrc);
                 const hasImage = Boolean(imageSrc);
                 const clickUrl = (banner.linkUrl || banner.clickUrl)?.trim();
-                const isActive = i === categoryBannerIdx;
+                const isActive = i === activeCategoryBannerIdx;
                 const content = hasVideo ? (
                   <video
                     ref={(el) => { categoryBannerVideoRefs.current[i] = el; }}

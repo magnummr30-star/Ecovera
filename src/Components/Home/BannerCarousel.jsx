@@ -14,12 +14,12 @@ export default function BannerCarousel() {
 
   const localBannerImageUrl1 =
     typeof window !== "undefined"
-      ? `${window.location.origin}/ProjectImages/banner1.png`
-      : "/ProjectImages/banner1.png";
+      ? `${window.location.origin}/ProjectImages/pp1.jpeg`
+      : "/ProjectImages/pp1.jpeg";
   const localBannerImageUrl2 =
     typeof window !== "undefined"
-      ? `${window.location.origin}/ProjectImages/banner2.png`
-      : "/ProjectImages/banner2.png";
+      ? `${window.location.origin}/ProjectImages/pp2.jpeg`
+      : "/ProjectImages/pp2.jpeg";
 
   const defaultBanners = [
     {
