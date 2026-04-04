@@ -3,7 +3,7 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 /**
  * Ø¨Ø§Ù†Ø± Ø§Ù„ØµÙØ­Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© â€” Ù†ÙØ³ ØªØµÙ…ÙŠÙ… Ø¨Ø§Ù†Ø± Ø§Ù„Ø£Ù‚Ø³Ø§Ù… ÙÙŠ FindProducts:
- * rounded-xlØŒ borderØŒ shadowØŒ aspect 1940/920ØŒ max-hØŒ Ù…Ø¹ Ø£Ø²Ø±Ø§Ø± ØªÙ†Ù‚Ù„ ÙˆÙ…ØµØºÙ‘Ø±Ø§Øª ÙˆØªØ¨Ø¯ÙŠÙ„ ØªÙ„Ù‚Ø§Ø¦ÙŠ.
+ * rounded-xlØŒ borderØŒ shadowØŒ Ù…Ø¹ Ø£Ø²Ø±Ø§Ø± ØªÙ†Ù‚Ù„ ÙˆÙ…ØµØºÙ‘Ø±Ø§Øª ÙˆØªØ¨Ø¯ÙŠÙ„ ØªÙ„Ù‚Ø§Ø¦ÙŠ.
  */
 
 export default function BannerCarousel() {
@@ -11,15 +11,17 @@ export default function BannerCarousel() {
   const [failedVideoIds, setFailedVideoIds] = useState({});
   const validLengthRef = useRef(0);
   const videoRefs = useRef([]);
+  const bannerImageWidth = 1376;
+  const bannerImageHeight = 768;
 
   const localBannerImageUrl1 =
     typeof window !== "undefined"
-      ? `${window.location.origin}/ProjectImages/pp1.jpeg`
-      : "/ProjectImages/pp1.jpeg";
+      ? `${window.location.origin}/ProjectImages/B1.jpeg`
+      : "/ProjectImages/B1.jpeg";
   const localBannerImageUrl2 =
     typeof window !== "undefined"
-      ? `${window.location.origin}/ProjectImages/pp2.jpeg`
-      : "/ProjectImages/pp2.jpeg";
+      ? `${window.location.origin}/ProjectImages/B2.jpeg`
+      : "/ProjectImages/B2.jpeg";
 
   const defaultBanners = [
     {
@@ -82,7 +84,7 @@ export default function BannerCarousel() {
 
   // Ù†ÙØ³ Ø§Ù„Ø­Ø§ÙˆÙŠØ© ÙˆØ§Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… ÙÙŠ FindProducts Ù„Ø¨Ø§Ù†Ø± Ø§Ù„Ø£Ù‚Ø³Ø§Ù…
   const containerClass =
-    "relative w-full overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[20px] border border-gray-200/80 shadow-sm aspect-[1940/920] max-h-[340px] bg-[#f7f2eb]";
+    "relative mx-auto w-full max-w-[1376px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[20px] border border-gray-200/80 shadow-sm bg-[#f7f2eb]";
 
   return (
     <div className="w-full mb-4">
@@ -110,7 +112,10 @@ export default function BannerCarousel() {
         )}
 
         {/* Ù†ÙØ³ ØªØµÙ…ÙŠÙ… Ø¨Ø§Ù†Ø± Ø§Ù„Ø£Ù‚Ø³Ø§Ù…: Ø­Ø§ÙˆÙŠØ© ÙˆØ§Ø­Ø¯Ø© ÙˆÙƒÙ„ Ø§Ù„Ø¨Ø§Ù†Ø±Ø§Øª Ù…Ø·Ù„Ø¹Ø© Ù…Ø¹ opacity */}
-        <div className={containerClass}>
+        <div
+          className={containerClass}
+          style={{ aspectRatio: `${bannerImageWidth} / ${bannerImageHeight}` }}
+        >
           {validBanners.map((banner, i) => {
             const bannerKey = banner.id ?? i;
             const rawImage = banner.imageUrl ?? banner.ImageUrl;
