@@ -12,6 +12,8 @@ import BannerCarousel from "./BannerCarousel";
 import AnnouncementBar from "./AnnouncementBar";
 import HomeCategoriesGrid from "./HomeCategoriesGrid";
 import HomeCategoriesCircles from "./HomeCategoriesCircles";
+import HomeFragranceHighlights from "./HomeFragranceHighlights";
+import HomeProductGallery from "./HomeProductGallery";
 import { useI18n } from "../i18n/I18nContext";
 import { FiMail, FiPhone } from "react-icons/fi";
 import { FaWhatsapp, FaTiktok, FaFacebookF, FaInstagram } from "react-icons/fa";
@@ -47,6 +49,79 @@ const LazySectionPlaceholder = ({ message, helper }) => (
     {helper && <p className="text-xs text-gray-400 max-w-sm">{helper}</p>}
   </div>
 );
+
+const QuickWhatsAppCta = ({ whatsAppNumber, callNumber, lang, t }) => {
+  const normalizedWhatsAppNumber = String(whatsAppNumber || "").replace(/[^0-9]/g, "");
+  const normalizedCallNumber = String(callNumber || "").replace(/[^0-9]/g, "");
+
+  if (!normalizedWhatsAppNumber) return null;
+
+  const whatsAppHref = `https://wa.me/${normalizedWhatsAppNumber}?text=${encodeURIComponent(
+    t(
+      "homePage.quickWhatsAppMessage",
+      "مرحباً، أحتاج مساعدة سريعة في اختيار المنتج المناسب."
+    )
+  )}`;
+  const isArabic = lang === "ar";
+  const textAlignClass = isArabic ? "text-center lg:text-right" : "text-center lg:text-left";
+  const actionsAlignClass = isArabic ? "justify-center lg:justify-end" : "justify-center lg:justify-start";
+
+  return (
+    <section className="py-3 md:py-4">
+      <div className="relative overflow-hidden rounded-[24px] border border-emerald-200/80 bg-[linear-gradient(135deg,#f4fff7_0%,#dcfce7_45%,#bbf7d0_100%)] shadow-[0_18px_45px_rgba(22,163,74,0.12)]">
+        <div className="pointer-events-none absolute -top-12 -right-10 h-36 w-36 rounded-full bg-white/35 blur-2xl" />
+        <div className="pointer-events-none absolute -bottom-16 -left-6 h-40 w-40 rounded-full bg-emerald-300/30 blur-3xl" />
+
+        <div className="relative grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] items-center gap-6 px-5 py-5 sm:px-7 sm:py-6 md:px-10 md:py-8">
+          <div className={`space-y-3 ${textAlignClass}`}>
+            <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-bold text-emerald-700 shadow-sm">
+              {t("homePage.quickWhatsAppEyebrow", "واتساب سريع")}
+            </span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-950">
+              {t("homePage.quickWhatsAppTitle", "ما لقيت طلبك؟ راسلنا مباشرة")}
+            </h2>
+            <p className="max-w-2xl text-sm sm:text-base leading-7 text-emerald-900/80">
+              {t(
+                "homePage.quickWhatsAppDesc",
+                "إذا كنت تبحث عن منتج معين أو تحتاج مساعدة سريعة، فريقنا جاهز للرد عليك عبر واتساب."
+              )}
+            </p>
+
+            <div className={`flex flex-wrap gap-3 ${actionsAlignClass}`}>
+              <a
+                href={whatsAppHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-2xl bg-[#16a34a] px-5 py-3 text-sm sm:text-base font-bold text-white shadow-lg shadow-emerald-700/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#15803d]"
+                aria-label={t("contact.whatsappCta", "اضغط هنا لإرسال رسالة عبر واتساب")}
+              >
+                <FaWhatsapp className="h-5 w-5 flex-shrink-0" />
+                <span>{t("homePage.quickWhatsAppButton", "اطلب عبر واتساب")}</span>
+              </a>
+
+              {normalizedCallNumber && (
+                <a
+                  href={`tel:${normalizedCallNumber}`}
+                  className="inline-flex items-center gap-2 rounded-2xl border border-emerald-700/20 bg-white/85 px-5 py-3 text-sm sm:text-base font-semibold text-emerald-900 transition-all duration-200 hover:border-emerald-700/40 hover:bg-white"
+                  aria-label={t("contact.phoneCta", "اضغط هنا للاتصال بنا الآن")}
+                >
+                  <FiPhone className="h-5 w-5 flex-shrink-0" />
+                  <span>{t("homePage.quickCallButton", "اتصل بنا")}</span>
+                </a>
+              )}
+            </div>
+          </div>
+
+          <div className="hidden lg:flex items-center justify-center">
+            <div className="flex h-24 w-24 items-center justify-center rounded-[28px] border border-white/80 bg-white/80 shadow-xl">
+              <FaWhatsapp className="h-12 w-12 text-[#16a34a]" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const ProductsRail = forwardRef(({ items, emptyMessage, isLoadingMore, onRemove, handleProductClick, t, getRoleFromToken }, ref) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -232,6 +307,14 @@ export default function Home() {
     ],
     [t]
   );
+
+  const homeContactInfo = useMemo(() => {
+    const info = adminInfo[0];
+    return {
+      whatsAppNumber: info?.whatsAppNumber ?? info?.whatsappNumber ?? "",
+      callNumber: info?.callNumber ?? info?.phoneNumber ?? "",
+    };
+  }, [adminInfo]);
 
   useEffect(() => {
     async function fetchAdminInfo() {
@@ -665,6 +748,17 @@ export default function Home() {
             <section className="relative w-full py-4 md:py-4">
               <BannerCarousel />
             </section>
+
+            <QuickWhatsAppCta
+              whatsAppNumber={homeContactInfo.whatsAppNumber}
+              callNumber={homeContactInfo.callNumber}
+              lang={lang}
+              t={t}
+            />
+
+            <HomeFragranceHighlights />
+
+            <HomeProductGallery />
 
             {/* Categories grid */}
             <HomeCategoriesGrid />

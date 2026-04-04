@@ -1769,6 +1769,12 @@ const translations = {
 			pointRelated: "Related products by category to increase cross-sales",
 			contactTitle: "Contact us",
 			contactDesc: "Have a question or need support? Our team is ready to serve you throughout the week.",
+			quickWhatsAppEyebrow: "Quick WhatsApp",
+			quickWhatsAppTitle: "Didn't find your item? Message us directly",
+			quickWhatsAppDesc: "If you are looking for a specific product or need quick help, our team is ready to reply on WhatsApp.",
+			quickWhatsAppButton: "Order on WhatsApp",
+			quickCallButton: "Call us",
+			quickWhatsAppMessage: "Hello, I need quick help choosing the right product.",
 			metaKeywords: "shop, discounts, offers, brands, authentic products, e-commerce, Ecovera",
 			ogTitle: "Shop now from Ecovera | Amazing offers and discounts",
 			ogDescription: "Best authentic products with discounts up to 50%. Discover offers now!",
@@ -2140,5 +2146,4 @@ export function I18nProvider({ children }) {
 export function useI18n() {
 	return useContext(I18nContext);
 }
-
 
