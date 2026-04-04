@@ -27,6 +27,8 @@ const normalizeBannerLookup = (value = "") =>
     .replace(/[^a-z0-9\u0621-\u063A\u0641-\u064A]+/g, "");
 
 export default function FindProducts() {
+  const bannerImageWidth = 1376;
+  const bannerImageHeight = 530;
   const location = useLocation();
   const { query: pathQuery } = useParams();
   const searchParams = new URLSearchParams(location.search);
@@ -299,7 +301,10 @@ export default function FindProducts() {
         {/* بانر القسم أو البانر الثابت المشترك لنتائج Vera Bloom */}
         {visibleCategoryBanners.length > 0 && (
           <div className="w-full px-2 sm:px-4 md:container md:mx-auto md:px-4 mb-4">
-            <div className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[20px] border border-gray-200/80 shadow-sm aspect-[1940/920] max-h-[340px] bg-gray-100 flex items-center justify-center">
+            <div
+              className="relative mx-auto w-full max-w-[860px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[20px] border border-gray-200/80 shadow-sm bg-gray-100 flex items-center justify-center"
+              style={{ aspectRatio: `${bannerImageWidth} / ${bannerImageHeight}` }}
+            >
               {visibleCategoryBanners.map((banner, i) => {
                 const rawImage = banner.imageUrl ?? banner.ImageUrl;
                 const imageSrc = rawImage ? (rawImage.startsWith("http") ? rawImage : `${ServerPath}${rawImage}`) : null;
