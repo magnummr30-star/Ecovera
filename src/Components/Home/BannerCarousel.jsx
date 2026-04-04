@@ -12,7 +12,7 @@ export default function BannerCarousel() {
   const validLengthRef = useRef(0);
   const videoRefs = useRef([]);
   const bannerImageWidth = 1376;
-  const bannerImageHeight = 768;
+  const bannerImageHeight = 530;
 
   const localBannerImageUrl1 =
     typeof window !== "undefined"
@@ -84,7 +84,7 @@ export default function BannerCarousel() {
 
   // Ù†ÙØ³ Ø§Ù„Ø­Ø§ÙˆÙŠØ© ÙˆØ§Ù„ØªØµÙ…ÙŠÙ… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… ÙÙŠ FindProducts Ù„Ø¨Ø§Ù†Ø± Ø§Ù„Ø£Ù‚Ø³Ø§Ù…
   const containerClass =
-    "relative mx-auto w-full max-w-[1376px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[20px] border border-gray-200/80 shadow-sm bg-[#f7f2eb]";
+    "relative mx-auto w-full max-w-[860px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-[20px] border border-gray-200/80 shadow-sm bg-[#f7f2eb]";
 
   return (
     <div className="w-full mb-4">
