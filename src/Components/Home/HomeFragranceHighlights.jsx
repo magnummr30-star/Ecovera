@@ -10,7 +10,7 @@ export default function HomeFragranceHighlights() {
     ? "اضغط على الصورة المصغرة لتبديل المعاينة"
     : "Tap a mini image to switch the preview";
   const [selectedImages, setSelectedImages] = React.useState({
-    "vera-essence": 0,
+    "vera-bloom": 0,
     "essence-bold": 0,
   });
   const content = isArabic
@@ -23,7 +23,7 @@ export default function HomeFragranceHighlights() {
         usageLabel: "مناسب لـ",
         cards: {
           vera: {
-            name: "VE Vera Essence",
+            name: "VE - Vera Bloom",
             subtitle: "طابع أنيق وهادئ يناسب من يحب الحضور الناعم والمتوازن.",
             usage: "مثالي للدوام، الخروجات اليومية، والمواعيد الهادئة.",
             benefits: [
@@ -33,7 +33,7 @@ export default function HomeFragranceHighlights() {
             ],
           },
           bold: {
-            name: "Essence Bold",
+            name: "VE - Essence Bold",
             subtitle: "شخصية جريئة بلمسة لافتة لمن يحب العطر الواضح والقوي.",
             usage: "مناسب للمساء، المناسبات، والإطلالات التي تحتاج حضورًا أقوى.",
             benefits: [
@@ -53,7 +53,7 @@ export default function HomeFragranceHighlights() {
         usageLabel: "Ideal For",
         cards: {
           vera: {
-            name: "VE Vera Essence",
+            name: "VE - Vera Bloom",
             subtitle: "A calm, elegant profile for anyone who prefers a soft balanced presence.",
             usage: "Perfect for workdays, daily outings, and relaxed plans.",
             benefits: [
@@ -63,7 +63,7 @@ export default function HomeFragranceHighlights() {
             ],
           },
           bold: {
-            name: "Essence Bold",
+            name: "VE - Essence Bold",
             subtitle: "A bold character with a standout touch for lovers of stronger presence.",
             usage: "Best for evenings, occasions, and looks that need more impact.",
             benefits: [
@@ -77,12 +77,12 @@ export default function HomeFragranceHighlights() {
 
   const cards = [
     {
-      id: "vera-essence",
+      id: "vera-bloom",
       name: content.cards.vera.name,
       subtitle: content.cards.vera.subtitle,
       usage: content.cards.vera.usage,
       images: ["/ProjectImages/N1.jpeg", "/ProjectImages/B22.jpeg"],
-      query: "VE Vera Essence",
+      query: "VE - Vera Bloom",
       accentClass:
         "from-[#fff7ed] via-[#fffaf3] to-[#f4e7d3] border-[#f2d7b5] shadow-[0_18px_40px_rgba(180,120,48,0.12)]",
       badgeClass: "bg-[#fff1df] text-[#9a5a12]",
@@ -96,7 +96,7 @@ export default function HomeFragranceHighlights() {
       subtitle: content.cards.bold.subtitle,
       usage: content.cards.bold.usage,
       images: ["/ProjectImages/N2.jpeg", "/ProjectImages/B11.jpeg"],
-      query: "Essence Bold",
+      query: "VE - Essence Bold",
       accentClass:
         "from-[#fff1f2] via-[#fff6f6] to-[#ffe0e3] border-[#f5c2ca] shadow-[0_18px_40px_rgba(190,24,93,0.14)]",
       badgeClass: "bg-[#ffe4e8] text-[#b4234e]",
